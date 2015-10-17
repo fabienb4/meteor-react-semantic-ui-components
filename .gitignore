@@ -1,0 +1,4 @@
+*.log
+jsdoc-conf.json
+jsdoc.json
+/docs
