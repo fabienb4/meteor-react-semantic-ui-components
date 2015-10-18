@@ -1,6 +1,6 @@
 Package.describe({
   name: 'fabienb4:react-semantic-ui-components',
-  version: '0.0.11',
+  version: '0.0.12',
   // Brief, one-line summary of the package.
   summary: 'A collection of React components to use with Semantic-UI.',
   // URL to the Git repository containing the source code for this package.

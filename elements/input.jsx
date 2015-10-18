@@ -9,6 +9,7 @@
  * @param  {String} [props.inputProps.$] Any property applicable to an &lt;input&gt; tag. If "simple": If "className" supplied, override "props.className".
  * @param  {Object} [props.divProps] Optional.
  * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
+ * @param  {Node|Node[]} [props.childrenBefore] Optional.
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
@@ -20,6 +21,7 @@ ReactSUI.Input = (props) => {
   } else {
     return (
       <div className={className} {...props.divProps}>
+        {props.childrenBefore}
         <input {...props.inputProps} />
         {props.children}
       </div>
@@ -28,12 +30,13 @@ ReactSUI.Input = (props) => {
 };
 
 ReactSUI.Input.propTypes = {
-  className : React.PropTypes.string,
-  simple    : React.PropTypes.oneOfType([
+  className     : React.PropTypes.string,
+  simple        : React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.bool
   ]),
-  inputProps: React.PropTypes.object.isRequired,
-  divProps  : React.PropTypes.object,
-  children  : React.PropTypes.node
+  inputProps    : React.PropTypes.object.isRequired,
+  divProps      : React.PropTypes.object,
+  childrenBefore: React.PropTypes.node,
+  children      : React.PropTypes.node
 };
