@@ -2,7 +2,7 @@
 
 A collection of React components to use with Semantic-UI.
 
-> This is a work in progress and is based on react 0.14.0 which is not yet officially supported by Meteor. As soon as it is, I will make the package available on Atmosphere. Use in production is not recommended, even with a custom React package supporting 0.14.0, as there are probably some issues to address and improvements to be made.
+> This is a work in progress and is based on react 0.14.0 which is not yet officially supported by Meteor. As soon as it is, I will make the package available on Atmosphere. Use in production is not recommended, even with a custom React package supporting 0.14.0, as there are probably some issues to address and improvements to be made. When the package is stable enough, I will bump the version to 0.1.0.
 
 > semantic-ui is NOT included in this package, to allow you to use a customized version if you need to. If you don't use a custom version, you must add the default package `semantic:ui-css` to your meteor app.
 

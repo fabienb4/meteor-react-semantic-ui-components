@@ -7,7 +7,8 @@
  * @instancename rating
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.type] Optional. Default "".
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Rating Settings](http://semantic-ui.com/modules/rating.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -31,21 +32,17 @@ ReactSUI.Rating = class Rating extends ReactSUI.Component {
     $(this.refs.rating).rating(behavior, ...options);
   }
   render() {
-    let className = ReactSUI.utils.addClass(this.className, this.props.type ? this.props.type : "");
 
-    return <div className={className} ref="rating"></div>;
+    return (
+      <div className={this.className} {...this.props.divProps} ref="rating">
+      </div>
+    );
   }
 };
 
-ReactSUI.Rating.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      type    : React.PropTypes.oneOf([
-        "star",
-        "heart"
-      ]),
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Rating.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

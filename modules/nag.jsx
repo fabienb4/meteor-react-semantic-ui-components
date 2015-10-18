@@ -7,7 +7,8 @@
  * @instancename nag
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.title] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Nag Settings](http://semantic-ui.com/modules/nag.html#/settings). Or for now: [Github file](https://github.com/Semantic-Org/Semantic-UI/blob/master/src/definitions/modules/nag.js#L429).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -37,17 +38,8 @@ ReactSUI.Nag = class Nag extends ReactSUI.Component {
     $(this.refs.nag).nag(behavior, ...options);
   }
   render() {
-    let children = [];
-
-    if (this.props.title) {
-      children.push(
-        <div key={children.length} className="title">{this.props.title}</div>
-      );
-    }
-
     return (
-      <div className={this.className} ref="nag">
-        {children}
+      <div className={this.className} {...this.props.divProps} ref="nag">
         {this.props.children}
         <ReactSUI.Icon name="close" />
       </div>
@@ -55,12 +47,9 @@ ReactSUI.Nag = class Nag extends ReactSUI.Component {
   }
 };
 
-ReactSUI.Nag.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      title   : React.PropTypes.string,
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Nag.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

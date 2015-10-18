@@ -7,8 +7,8 @@
  * @instancename shape
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.type] Optional. Default "".
- * @param  {Node[]} [props.sides] Optional. See [ReactSUI.Shape.Side properties](#ReactSUI-Shape-Side).
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Shape Settings](http://semantic-ui.com/modules/shape.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -36,19 +36,9 @@ ReactSUI.Shape = class Shape extends ReactSUI.Component {
     $(this.refs.shape).shape(behavior, ...options);
   }
   render() {
-    let className = ReactSUI.utils.addClass(this.className, this.props.type);
-    let children  = _.map(this.props.sides, (side, i) => {
-      return (
-        <ReactSUI.Shape.Side key={i} className={i === 0 ? "active" : ""}>
-          {side}
-        </ReactSUI.Shape.Side>
-      );
-    });
-
     return (
-      <div className={className} ref="shape">
+      <div className={this.className} {...this.props.divProps} ref="shape">
         <div className="sides">
-          {children}
           {this.props.children}
         </div>
       </div>
@@ -56,25 +46,20 @@ ReactSUI.Shape = class Shape extends ReactSUI.Component {
   }
 };
 
-ReactSUI.Shape.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      type    : React.PropTypes.oneOf([
-        "cube",
-        "text"
-      ]),
-      side    : React.PropTypes.arrayOf(React.PropTypes.node),
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Shape.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};
 
 /**
  * @summary Constructor for the Shape's Side component.
  * @memberOf ReactSUI.Shape
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
@@ -82,10 +67,14 @@ ReactSUI.Shape.Side = (props) => {
   let className = ReactSUI.utils.addClass("side", props.className);
 
   return (
-    <div className={className}>
+    <div className={className} {...props.divProps}>
       {props.children}
     </div>
   );
 };
 
-ReactSUI.Shape.Side.propTypes = ReactSUI.Component.propTypes;
+ReactSUI.Shape.Side.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};

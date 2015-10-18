@@ -4,16 +4,22 @@
  * @memberOf ReactSUI
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.Grid = (props) => {
   let className = ReactSUI.utils.addClass("ui grid", props.className);
 
-  return <div className={className}>{props.children}</div>;
+  return <div className={className} {...props.divProps}>{props.children}</div>;
 };
 
-ReactSUI.Grid.propTypes = ReactSUI.Component.propTypes;
+ReactSUI.Grid.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};
 
 /**
  * @summary Constructor for the grid's row component.
@@ -21,16 +27,22 @@ ReactSUI.Grid.propTypes = ReactSUI.Component.propTypes;
  * @memberOf ReactSUI.Grid
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.Grid.Row = (props) => {
   let className = ReactSUI.utils.addClass("row", props.className);
 
-  return <div className={className}>{props.children}</div>;
+  return <div className={className} {...props.divProps}>{props.children}</div>;
 };
 
-ReactSUI.Grid.Row.propTypes = ReactSUI.Component.propTypes;
+ReactSUI.Grid.Row.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};
 
 /**
  * @summary Constructor for the grid's column component.
@@ -38,13 +50,19 @@ ReactSUI.Grid.Row.propTypes = ReactSUI.Component.propTypes;
  * @memberOf ReactSUI.Grid
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.Grid.Column = (props) => {
   let className = ReactSUI.utils.addClass("column", props.className);
 
-  return <div className={className}>{props.children}</div>;
+  return <div className={className} {...props.divProps}>{props.children}</div>;
 };
 
-ReactSUI.Grid.Column.propTypes = ReactSUI.Component.propTypes;
+ReactSUI.Grid.Column.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};

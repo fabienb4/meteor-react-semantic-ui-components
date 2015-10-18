@@ -7,6 +7,8 @@
  * @instancename sticky
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Sticky Settings](http://semantic-ui.com/modules/sticky.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -34,18 +36,16 @@ ReactSUI.Sticky = class Sticky extends ReactSUI.Component {
   }
   render() {
     return (
-      <div className={this.className} ref="sticky">
+      <div className={this.className} {...this.props.divProps} ref="sticky">
         {this.props.children}
       </div>
     );
   }
 };
 
-ReactSUI.Sticky.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Sticky.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

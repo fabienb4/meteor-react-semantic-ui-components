@@ -7,9 +7,8 @@
  * @instancename sidebar
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {Object} [props.menu] Optional.
- * @param  {String} [props.menu.className] Optional.
- * @param  {Object[]} [props.menu.items] Optional. See [ReactSUI.Menu.Item properties](#ReactSUI-Menu-Item).
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Sidebar Settings](http://semantic-ui.com/modules/sidebar.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -33,35 +32,17 @@ ReactSUI.Sidebar = class Sidebar extends ReactSUI.Component {
     $(this.refs.sidebar).sidebar(behavior, ...options);
   }
   render() {
-    let className = this.className;
-    let menuChildren;
-
-    if (this.props.menu) {
-      className    = ReactSUI.utils.addClass(className, "menu", this.props.menu.className);
-      menuChildren = _.map(
-        this.props.menu.items,
-        (item, i) => <ReactSUI.Menu.Item key={i} {...item} />
-      );
-    }
-
     return (
-      <div className={className} ref="sidebar">
-        {menuChildren}
+      <div className={className} {...this.props.divProps} ref="sidebar">
         {this.props.children}
       </div>
     );
   }
 };
 
-ReactSUI.Sidebar.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      menu    : React.PropTypes.shape({
-        className: React.PropTypes.string,
-        items    : React.PropTypes.arrayOf(React.PropTypes.object)
-      }),
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Sidebar.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

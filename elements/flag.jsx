@@ -13,11 +13,7 @@ ReactSUI.Flag = (props) => {
   return <i className={className}></i>;
 };
 
-ReactSUI.Flag.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      country: React.PropTypes.string.isRequired
-    }
-  }
-);
+ReactSUI.Flag.propTypes = {
+  className: React.PropTypes.string,
+  country  : React.PropTypes.string.isRequired
+};

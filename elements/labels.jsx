@@ -4,22 +4,19 @@
  * @memberOf ReactSUI
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {Object[]} [props.labels] Optional. See [ReactSUI.Label properties](#ReactSUI-Label).
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.Labels = (props) => {
   let className = ReactSUI.utils.addClass("ui labels", props.className);
-  let children  = _.map(props.labels, (label, i) => <ReactSUI.Label key={i} {...label} />);
 
-  return <div className={className}>{children}{props.children}</div>;
+  return <div className={className} {...props.divProps}>{props.children}</div>;
 };
 
-ReactSUI.Labels.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      labels: React.PropTypes.arrayOf(React.PropTypes.object)
-    }
-  }
-);
+ReactSUI.Labels.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};

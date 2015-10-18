@@ -7,10 +7,8 @@
  * @instancename embed
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.source] Optional.
- * @param  {String} [props.id] Optional.
- * @param  {String} [props.placeholder] Optional.
- * @param  {String} [props.icon] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Embed Settings](http://semantic-ui.com/modules/embed.html#/settings).
  */
 ReactSUI.Embed = class Embed extends ReactSUI.Component {
@@ -34,27 +32,14 @@ ReactSUI.Embed = class Embed extends ReactSUI.Component {
   }
   render() {
     return (
-      <div
-        className={this.className}
-        ref="embed"
-        data-source={this.props.source}
-        data-id={this.props.id}
-        data-placeholder={this.props.placeholder}
-        data-icon={this.props.icon}
-        ></div>
+      <div className={this.className} {...this.props.divProps} ref="embed">
+      </div>
     );
   }
 };
 
-ReactSUI.Embed.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      source     : React.PropTypes.string,
-      id         : React.PropTypes.string,
-      placeholder: React.PropTypes.string,
-      icon       : React.PropTypes.string,
-      settings   : React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Embed.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object
+};

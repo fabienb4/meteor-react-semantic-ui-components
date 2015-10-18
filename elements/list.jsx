@@ -4,25 +4,22 @@
  * @memberOf ReactSUI
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {Object[]} [props.items] Optional. See [ReactSUI.List.Item properties](#ReactSUI-List-Item).
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.List = (props) => {
   let className = ReactSUI.utils.addClass("ui list", props.className);
-  let children  = _.map(props.items, (item, i) => <ReactSUI.List.Item key={i} {...item} />);
 
-  return <div className={className}>{children}{props.children}</div>;
+  return <div className={className} {...props.divProps}>{props.children}</div>;
 };
 
-ReactSUI.List.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      items: React.PropTypes.arrayOf(React.PropTypes.object)
-    }
-  }
-);
+ReactSUI.List.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};
 
 /**
  * @summary Constructor for the list's item component.
@@ -30,50 +27,29 @@ ReactSUI.List.propTypes = React.addons.update(
  * @memberOf ReactSUI.List
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.href] Optional.
- * @param  {String} [props.header] Optional.
- * @param  {String} [props.description] Optional.
+ * @param  {Object} [props.linkProps] Optional.
+ * @param  {String} [props.linkProps.$] Any property applicable to an &lt;a&gt; tag. If "className" supplied, override "props.className".
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.List.Item = (props) => {
   let className = ReactSUI.utils.addClass("item", props.className);
 
-  if (props.href) {
-    return <a className={className} href={props.href}>{props.children}</a>
+  if (props.linkProps) {
+    return <a className={className} {...props.linkProps}>{props.children}</a>
   } else {
-    let children;
-
-    if (props.header || props.description) {
-      let contentChildren = [];
-
-      if (props.header) {
-        contentChildren.push(
-          <ReactSUI.Header
-            key={contentChildren.length}
-            text={props.header}
-            nested="true" />
-        );
-      }
-
-      if (props.description) {
-        contentChildren.push(<div key={contentChildren.length} className="description">{props.description}</div>);
-      }
-
-      children = <div className="content">{contentChildren}</div>;
-    }
-
-    return <div className={className}>{props.children}{children}</div>;
+    return (
+      <div className={className} {...props.divProps}>
+        {props.children}
+      </div>
+    );
   }
 };
 
-ReactSUI.List.Item.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      href       : React.PropTypes.string,
-      header     : React.PropTypes.string,
-      description: React.PropTypes.string
-    }
-  }
-);
+ReactSUI.List.Item.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};

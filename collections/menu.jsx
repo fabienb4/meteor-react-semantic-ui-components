@@ -8,7 +8,8 @@
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
  * @param  {Boolean} [props.nested] Optional.
- * @param  {Object[]} [props.items] Optional. See [ReactSUI.Menu.Item properties](#ReactSUI-Menu-Item)
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
@@ -18,27 +19,20 @@ ReactSUI.Menu = class Menu extends ReactSUI.Component {
   }
   render() {
     let className = ReactSUI.utils.addClass(this.className, this.props.nested ? "" : "ui");
-    let children  = _.map(
-      this.props.items,
-      (item, i) => <ReactSUI.Menu.Item key={i} {...item} />
-    );
 
-    return <div className={className}>{children}{this.props.children}</div>;
+    return <div className={className} {...this.props.divProps}>{this.props.children}</div>;
   }
 };
 
-ReactSUI.Menu.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      nested: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.bool
-      ]),
-      items: React.PropTypes.arrayOf(React.PropTypes.object)
-    }
-  }
-);
+ReactSUI.Menu.propTypes = {
+  className: React.PropTypes.string,
+  nested   : React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.bool
+  ]),
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};
 
 /**
  * @summary Constructor for the menu's item component.
@@ -47,16 +41,9 @@ ReactSUI.Menu.propTypes = React.addons.update(
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
  * @param  {Object} [props.linkProps] Optional.
- * @param  {String} props.linkProps.text
- * @param  {String} [props.linkProps.$] Any property applicable to an &lt;a&gt; tag.
- * @param  {String} [props.header] Optional.
- * @param  {String} [props.text] Optional.
- * @param  {Object} [props.inputProps] Optional. See [ReactSUI.Input properties](#ReactSUI-Input)
- * @param  {Object} [props.buttonProps] Optional. See [ReactSUI.Button properties](#ReactSUI-Button)
- * @param  {Object} [props.dropdownProps] Optional. See [ReactSUI.Dropdown properties](#ReactSUI-Dropdown)
- * @param  {Object} [props.popupProps] Optional. See [ReactSUI.Popup properties](#ReactSUI-Popup)
- * @param  {Object} [props.searchProps] Optional. See [ReactSUI.Search properties](#ReactSUI-Search)
- * @param  {Object} [props.subMenuProps] Optional. See [ReactSUI.Menu properties](#ReactSUI-Menu)
+ * @param  {String} [props.linkProps.$] Any property applicable to an &lt;a&gt; tag. If "className" supplied, override "props.className".
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
@@ -64,73 +51,15 @@ ReactSUI.Menu.Item = (props) => {
   let className = ReactSUI.utils.addClass("item", props.className);
 
   if (props.linkProps) {
-    let linkProps = _.omit(props.linkProps, "text");
-
-    return <a className={className} {...linkProps}>{props.linkProps.text}{props.children}</a>;
+    return <a className={className} {...props.linkProps}>{props.children}</a>;
   } else {
-    let children;
-
-    if (props.header) {
-      children.push(
-        <ReactSUI.Header
-          key={children.length}
-          text={props.header}
-          nested="true" />
-      );
-    }
-
-    if (props.text) {
-      children.push(
-        <p key={children.length}>{props.text}</p>
-      );
-    } else if (props.inputProps) {
-      children.push(
-        <ReactSUI.Input key={children.length} {...props.inputProps} />
-      );
-    } else if (props.buttonProps) {
-      children.push(
-        <ReactSUI.Button key={children.length} {...props.buttonProps} />
-      );
-    } else if (props.dropdownProps) {
-      children.push(
-        <ReactSUI.Dropdown key={children.length} {...props.dropdownProps} />
-      );
-    } else if (props.popupProps) {
-      children.push(
-        <ReactSUI.Popup key={children.length} {...props.popupProps} />
-      );
-    } else if (props.searchProps) {
-      children.push(
-        <ReactSUI.Search key={children.length} {...props.searchProps} />
-      );
-    } else if (props.subMenuProps) {
-      children.push(
-        <ReactSUI.Menu
-          key={children.length}
-          {...props.subMenuProps}
-          nested="true" />
-      );
-    }
-
-    return <div className={className}>{children}{props.children}</div>;
+    return <div className={className} {...props.divProps}>{props.children}</div>;
   }
 };
 
-ReactSUI.Menu.Item.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      linkProps    : React.PropTypes.shape({
-        text: React.PropTypes.string.isRequired
-      }),
-      header       : React.PropTypes.string,
-      text         : React.PropTypes.string,
-      inputProps   : React.PropTypes.object,
-      buttonProps  : React.PropTypes.object,
-      dropdownProps: React.PropTypes.object,
-      popupProps   : React.PropTypes.object,
-      searchProps  : React.PropTypes.object,
-      subMenuProps : React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Menu.Item.propTypes = {
+  className: React.PropTypes.string,
+  linkProps: React.PropTypes.object,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};

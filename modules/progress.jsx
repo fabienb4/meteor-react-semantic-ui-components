@@ -7,11 +7,8 @@
  * @instancename progress
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {Boolean} [props.progress] Optional.
- * @param  {String} [props.label] Optional.
- * @param  {Number} [props.percent] Optional.
- * @param  {Number} [props.value] Optional.
- * @param  {Number} [props.total] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Progress Settings](http://semantic-ui.com/modules/progress.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -35,48 +32,17 @@ ReactSUI.Progress = class Progress extends ReactSUI.Component {
     $(this.refs.progress).progress(behavior, ...options);
   }
   render() {
-    let data = {}, barProgress, label;
-
-    if (this.props.progress) {
-      barProgress = <div className="progress"></div>;
-    }
-
-    if (this.props.label) {
-      label = <div className="label">{this.props.label}</div>;
-    }
-
-    if (this.props.percent) {
-      data["data-percent"] = this.props.percent;
-    } else {
-      if (this.props.value && this.props.total) {
-        data["data-value"] = this.props.value;
-        data["data-total"] = this.props.total;
-      }
-    }
-
     return (
-      <div className={this.className} {...data} ref="progress">
-        <div className="bar">{barProgress}</div>
-        {label}
+      <div className={this.className} {...this.props.divProps} ref="progress">
         {this.props.children}
       </div>
     );
   }
 };
 
-ReactSUI.Progress.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      progress: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.bool
-      ]),
-      label   : React.PropTypes.string,
-      percent : React.PropTypes.number,
-      value   : React.PropTypes.number,
-      total   : React.PropTypes.number,
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Progress.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

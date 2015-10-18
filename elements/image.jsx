@@ -5,22 +5,18 @@
  * @param  {Object} props
  * @param  {String} [props.className] Optional.
  * @param  {String} props.src
- * @param  {Object} [props.imageProps] Optional.
- * @param  {String} [props.imageProps.$] Any property applicable to an &lt;img&gt; tag.
+ * @param  {Object} [props.imgProps] Optional.
+ * @param  {String} [props.imgProps.$] Any property applicable to an &lt;img&gt; tag. If "className", "src" supplied, override "props.className", "props.src".
  * @return {Node}
  */
 ReactSUI.Image = (props) => {
   let className = ReactSUI.utils.addClass("ui image", props.className);
 
-  return <img className={className} src={props.src} {...props.imageProps} />;
+  return <img className={className} src={props.src} {...props.imgProps} />;
 };
 
-ReactSUI.Image.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      src       : React.PropTypes.string.isRequired,
-      imageProps: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Image.propTypes = {
+  className: React.PropTypes.string,
+  src      : React.PropTypes.string.isRequired,
+  imgProps : React.PropTypes.object
+};

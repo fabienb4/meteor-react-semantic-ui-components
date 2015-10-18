@@ -4,25 +4,23 @@
  * @memberOf ReactSUI
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.text] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
 ReactSUI.Loader = (props) => {
   let className = ReactSUI.utils.addClass("ui loader", props.className);
 
-  if (props.text) {
+  if (props.children) {
     className = ReactSUI.utils.addClass(className, "text");
   }
 
-  return <div className={className}>{props.text}{props.children}</div>;
+  return <div className={className} {...props.divProps}>{props.children}</div>;
 };
 
-ReactSUI.Loader.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      text: React.PropTypes.string
-    }
-  }
-);
+ReactSUI.Loader.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  children : React.PropTypes.node
+};

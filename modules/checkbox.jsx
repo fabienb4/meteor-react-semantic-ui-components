@@ -8,8 +8,10 @@
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
  * @param  {String} [props.type] Optional. Default: "checkbox"
- * @param  {String} props.name
  * @param  {Object} [props.inputProps] Optional.
+ * @param  {String} [props.inputProps.$] Any property applicable to an &lt;input&gt; tag, except "type".
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Checkbox Settings](http://semantic-ui.com/modules/checkbox.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -34,7 +36,6 @@ ReactSUI.Checkbox = class Checkbox extends ReactSUI.Component {
   }
   render() {
     let className  = this.className;
-    let inputProps = this.props.inputProps || {};
     let inputType  = this.props.type === "radio" ? "radio" : "checkbox";
 
     if (this.props.type) {
@@ -42,31 +43,24 @@ ReactSUI.Checkbox = class Checkbox extends ReactSUI.Component {
     }
 
     return (
-      <div className={className} ref="checkbox">
-        <ReactSUI.Input
-          {...inputProps}
-          simple="true"
-          name={this.props.name}
-          type={inputType} />
-        <label>{this.props.label}</label>
+      <div className={className} {...this.props.divProps} ref="checkbox">
+        <ReactSUI.Input inputProps={this.props.inputProps} simple="true" type={inputType} />
+        {this.props.children}
       </div>
     );
   }
 };
 
-ReactSUI.Checkbox.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      type      : React.PropTypes.oneOf([
-        "checkbox",
-        "radio",
-        "slider",
-        "toggle"
-      ]),
-      name      : React.PropTypes.string.isRequired,
-      inputProps: React.PropTypes.object,
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Checkbox.propTypes = {
+  className: React.PropTypes.string,
+  type      : React.PropTypes.oneOf([
+    "checkbox",
+    "radio",
+    "slider",
+    "toggle"
+  ]),
+  inputProps: React.PropTypes.object,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

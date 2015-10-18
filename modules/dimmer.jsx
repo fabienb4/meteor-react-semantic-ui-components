@@ -7,6 +7,8 @@
  * @instancename dimmer
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Dimmer Settings](http://semantic-ui.com/modules/dimmer.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -31,7 +33,7 @@ ReactSUI.Dimmer = class Dimmer extends ReactSUI.Component {
   }
   render() {
     return (
-      <div className={this.className} ref="dimmer">
+      <div className={this.className} {...this.props.divProps} ref="dimmer">
         <div className="content">
           <div className="center">
             {this.props.children}
@@ -42,11 +44,9 @@ ReactSUI.Dimmer = class Dimmer extends ReactSUI.Component {
   }
 };
 
-ReactSUI.Dimmer.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Dimmer.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

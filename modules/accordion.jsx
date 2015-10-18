@@ -8,9 +8,8 @@
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
  * @param  {Boolean} [props.nested] Optional.
- * @param  {Object[]} [props.items] Optional.
- * @param  {String} props.items.title
- * @param  {Node|Node[]} props.items.content
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Accordion Settings](http://semantic-ui.com/modules/accordion.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -38,41 +37,22 @@ ReactSUI.Accordion = class Accordion extends ReactSUI.Component {
   }
   render() {
     let className = ReactSUI.utils.addClass(this.className, this.props.nested ? "" : "ui");
-    let children  = _.map(this.props.items, item => {
-      return [
-        <div className="title">
-          <ReactSUI.Icon name="dropdown" />
-          {item.title}
-        </div>,
-        <div className="content">{item.content}</div>
-      ];
-    });
 
-    if (_.includes(className, "menu")) {
-      children = _.map(children, (child, i) => {
-        return <div key={i} className="item">{child}</div>
-      });
-    }
-
-    return <div className={className} ref="accordion">{children}{this.props.children}</div>;
+    return (
+      <div className={className} {...this.props.divProps} ref="accordion">
+        {this.props.children}
+      </div>
+    );
   }
 };
 
-ReactSUI.Accordion.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      nested: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.bool
-      ]),
-      items: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          title  : React.PropTypes.string.isRequired,
-          content: React.PropTypes.node.isRequired
-        })
-      ),
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Accordion.propTypes = {
+  className: React.PropTypes.string,
+  nested   : React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.bool
+  ]),
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

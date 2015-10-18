@@ -17,5 +17,6 @@ ReactSUI.Component = class Component extends React.Component {
 };
 
 ReactSUI.Component.propTypes = {
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  children : React.PropTypes.node
 };

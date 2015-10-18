@@ -7,6 +7,8 @@
  * @instancename popup
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Object} [props.settings] Optional. See [Semantic-UI Popup Settings](http://semantic-ui.com/modules/popup.html#/settings).
  * @param  {Node|Node[]} [props.children] Optional.
  */
@@ -30,39 +32,17 @@ ReactSUI.Popup = class Popup extends ReactSUI.Component {
     $(this.refs.popup).prev().popup(behavior, ...options);
   }
   render() {
-    let children = [];
-
-    if (this.props.header) {
-      children.push(
-        <ReactSUI.Header
-          key={children.length}
-          text={this.props.header}
-          nested="true" />
-      );
-    }
-
-    if (this.props.content) {
-      children.push(
-        <div key={children.length} className="content">{this.props.content}</div>
-      );
-    }
-
     return (
-      <div className={this.className} ref="popup">
-        {children}
+      <div className={this.className} {...this.props.divProps} ref="popup">
         {this.props.children}
       </div>
     );
   }
 };
 
-ReactSUI.Popup.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      header  : React.PropTypes.string,
-      content : React.PropTypes.string,
-      settings: React.PropTypes.object
-    }
-  }
-);
+ReactSUI.Popup.propTypes = {
+  className: React.PropTypes.string,
+  divProps : React.PropTypes.object,
+  settings : React.PropTypes.object,
+  children : React.PropTypes.node
+};

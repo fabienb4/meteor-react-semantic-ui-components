@@ -7,10 +7,10 @@
  * @instancename message
  * @param  {Object} [props]
  * @param  {String} [props.className] Optional.
- * @param  {String} [props.header] Optional.
- * @param  {String} [props.text] Optional.
  * @param  {Boolean} [props.dismissable] Optional.
  * @param  {String} [props.transition] Optional. Default: "fade down".
+ * @param  {Object} [props.divProps] Optional.
+ * @param  {String} [props.divProps.$] Any property applicable to a &lt;div&gt; tag. If "className" supplied, override "props.className".
  * @param  {Node|Node[]} [props.children] Optional.
  * @return {Node}
  */
@@ -24,46 +24,27 @@ ReactSUI.Message = class Message extends ReactSUI.Component {
     });
   }
   render() {
-    let closeIcon, children = [];
+    let closeIcon;
 
     if (this.props.dismissable) {
       closeIcon = <ReactSUI.Icon name="close" handleClick={this.handleDismiss.bind(this)} />
     }
 
-    if (this.props.header) {
-      children.push(
-        <ReactSUI.Header
-          key={children.length}
-          text={this.props.header}
-          nested="true" />
-      );
-    }
-
-    if (this.props.text) {
-      children.push(
-        <p key={children.length}>{this.props.text}</p>
-      );
-    }
-
     return (
-      <div className={this.className} ref="message">
-        {closeIcon}{children}{this.props.children}
+      <div className={this.className} {...this.props.divProps} ref="message">
+        {closeIcon}{this.props.children}
       </div>
     );
   }
 };
 
-ReactSUI.Message.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      header     : React.PropTypes.string,
-      text       : React.PropTypes.string,
-      dismissable: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.bool
-      ]),
-      transition : React.PropTypes.string,
-    }
-  }
-)
+ReactSUI.Message.propTypes = {
+  className  : React.PropTypes.string,
+  dismissable: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.bool
+  ]),
+  transition : React.PropTypes.string,
+  divProps   : React.PropTypes.object,
+  children   : React.PropTypes.node
+};

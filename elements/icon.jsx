@@ -14,12 +14,8 @@ ReactSUI.Icon = (props) => {
   return <i className={className} onClick={props.handleClick}></i>;
 };
 
-ReactSUI.Icon.propTypes = React.addons.update(
-  ReactSUI.Component.propTypes,
-  {
-    $merge: {
-      name       : React.PropTypes.string.isRequired,
-      handleClick: React.PropTypes.func
-    }
-  }
-);
+ReactSUI.Icon.propTypes = {
+  className  : React.PropTypes.string,
+  name       : React.PropTypes.string.isRequired,
+  handleClick: React.PropTypes.func
+};
