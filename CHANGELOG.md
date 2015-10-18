@@ -5,6 +5,10 @@ A collection of React components to use with Semantic-UI.
 
 ## ChangeLog
 
+### 0.0.13
+
+- Added missing file in `package.js`.
+
 ### 0.0.12
 
 - Fixed input related components.

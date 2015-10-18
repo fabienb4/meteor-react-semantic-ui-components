@@ -1,6 +1,6 @@
 Package.describe({
   name: 'fabienb4:react-semantic-ui-components',
-  version: '0.0.12',
+  version: '0.0.13',
   // Brief, one-line summary of the package.
   summary: 'A collection of React components to use with Semantic-UI.',
   // URL to the Git repository containing the source code for this package.
@@ -61,6 +61,7 @@ Package.onUse(function(api) {
   api.addFiles([
     'views/advertisement.jsx',
     'views/card.jsx',
+    'views/cards.jsx',
     'views/comments.jsx',
     'views/feed.jsx',
     'views/items.jsx',
