@@ -27,7 +27,7 @@ ReactSUI.Message = class Message extends ReactSUI.Component {
     let closeIcon;
 
     if (this.props.dismissable) {
-      closeIcon = <ReactSUI.Icon name="close" handleClick={this.handleDismiss.bind(this)} />
+      closeIcon = <ReactSUI.Icon name="close" iProps={{ onClick: this.handleDismiss.bind(this) }} />
     }
 
     return (

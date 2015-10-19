@@ -5,17 +5,18 @@
  * @param  {Object} props
  * @param  {String} [props.className] Optional.
  * @param  {String} props.name
- * @param  {Function} [props.handleClick] Optional.
+ * @param  {Object} [props.iProps] Optional.
+ * @param  {String} [props.iProps.$] Any property applicable to an &lt;i&gt; tag. If "className" supplied, override "props.className".
  * @return {Node}
  */
 ReactSUI.Icon = (props) => {
   let className = ReactSUI.utils.addClass("icon", props.name, props.className);
 
-  return <i className={className} onClick={props.handleClick}></i>;
+  return <i className={className} {...props.iProps}></i>;
 };
 
 ReactSUI.Icon.propTypes = {
   className  : React.PropTypes.string,
   name       : React.PropTypes.string.isRequired,
-  handleClick: React.PropTypes.func
+  iProps     : React.PropTypes.object
 };

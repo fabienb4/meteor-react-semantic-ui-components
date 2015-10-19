@@ -5,6 +5,12 @@ A collection of React components to use with Semantic-UI.
 
 ## ChangeLog
 
+### 0.0.14
+
+- Added `iProps` to icon.
+- Removed hard coded `onClick` handlers in favor of `divProps`, `iProps`...
+- Removed hard coded `src` on `Image` & `ImageContainer.Img`.
+
 ### 0.0.13
 
 - Added missing file in `package.js`.

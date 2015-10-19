@@ -27,18 +27,16 @@ ReactSUI.ImageContainer.propTypes = {
  * @memberOf ReactSUI.ImageContainer
  * @param  {Object} props
  * @param  {String} [props.className] Optional.
- * @param  {String} props.src
  * @param  {Object} [props.imgProps] Optional.
  * @param  {String} [props.imgProps.$] Any property applicable to an &lt;img&gt; tag. If "className", "src" supplied, override "props.className", "props.src".
  * @return {Node}
  */
 ReactSUI.ImageContainer.Img = (props) => {
-  return <img className={props.className} src={props.src} {...props.imgProps} />;
+  return <img className={props.className} {...props.imgProps} />;
 };
 
 ReactSUI.ImageContainer.Img.propTypes = {
   className: React.PropTypes.string,
-  src      : React.PropTypes.string.isRequired,
   imgProps : React.PropTypes.object
 };
 
