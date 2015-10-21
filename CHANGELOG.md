@@ -5,6 +5,10 @@ A collection of React components to use with Semantic-UI.
 
 ## ChangeLog
 
+### 0.0.15
+
+- Fixed bool detection for comments to allow strings.
+
 ### 0.0.14
 
 - Added `iProps` to icon.

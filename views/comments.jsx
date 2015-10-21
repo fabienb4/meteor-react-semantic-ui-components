@@ -18,7 +18,10 @@ ReactSUI.Comments = (props) => {
 
 ReactSUI.Comments.propTypes = {
   className: React.PropTypes.string,
-  nested   : React.PropTypes.bool,
+  nested   : React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.bool
+  ]),
   divProps : React.PropTypes.object,
   children : React.PropTypes.node
 };
