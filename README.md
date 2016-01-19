@@ -1,5 +1,7 @@
 # fabienb4:react-semantic-ui-components
 
+> **This package is no longer maintained.**
+
 A collection of React components to use with Semantic-UI.
 
 > This is a work in progress and is based on react 0.14.0 which is not yet officially supported by Meteor. As soon as it is, I will make the package available on Atmosphere. Use in production is not recommended, even with a custom React package supporting 0.14.0, as there are probably some issues to address and improvements to be made. When the package is stable enough, I will bump the version to 0.1.0.
