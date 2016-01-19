@@ -1,6 +1,6 @@
 # fabienb4:react-semantic-ui-components
 
-> **This package is no longer maintained.**
+> **This package is no longer maintained. If you have a well maintained fork, please send me an email so I can add a link to it here.**
 
 A collection of React components to use with Semantic-UI.
 
